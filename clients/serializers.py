@@ -1,23 +1,18 @@
 from django.db.models import fields
 from rest_framework import serializers
 from clients.models import Client
+from clients.validators import *
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
 
-    def validate_id_number(self, id_number):
-        if id_number != 11:
-            raise serializers.ValidationError("id_number must have 11 characters")
-        return id_number
-
-    def validate_name(self, name):
-        if not name.isalpha():
-            raise serializers.ValidationError("name must be alphabetical")
-        return name
-
-    def validate_phone_number(self, number):
-        if len(number) < 11:
-            raise serializers.ValidationError("phone_number must have at least 11 characters")
-        return number
+    def validate(self, data):
+        if not name_valid(data['name']):
+            raise serializers.ValidationError({'name': 'Name must be alphabetical'})
+        if not id_number_valid(data['id_number']):
+            raise serializers.ValidationError({'id_number': 'Must have 11 characters'})
+        if not phone_number_valid(data['phone_number']):
+            raise serializers.ValidationError({'phone_number': 'Must have at least 11 characters'})
+        return data
