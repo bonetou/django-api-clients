@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from clients.models import Client, client
+from clients.models import Client
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
