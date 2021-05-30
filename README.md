@@ -11,6 +11,10 @@ Install requirements
 ```bash
 python -m pip install -r requirements.txt
 ```
+Migrate
+```bash
+python manage.py migrate
+```
 Generate clients
 ```bash
 python populate_script.py
