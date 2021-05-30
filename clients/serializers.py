@@ -14,5 +14,5 @@ class ClientSerializer(serializers.ModelSerializer):
         if not id_number_valid(data['id_number']):
             raise serializers.ValidationError({'id_number': 'Must have 11 characters'})
         if not phone_number_valid(data['phone_number']):
-            raise serializers.ValidationError({'phone_number': 'Must have at least 11 characters'})
+            raise serializers.ValidationError({'phone_number': 'Must have follow the pattern: 11 12345-1234'})
         return data
